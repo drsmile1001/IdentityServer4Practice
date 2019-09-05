@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityProvider", "IdentityProvider\IdentityProvider.csproj", "{586209B0-76BC-4196-9A59-32CB07476CB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{6426797F-D5A5-41A4-B1C9-868BE161A10F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{6426797F-D5A5-41A4-B1C9-868BE161A10F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtectedAspDotNetCoreWebApi", "ProtectedAspDotNetCoreWebApi\ProtectedAspDotNetCoreWebApi.csproj", "{658942D5-C8AC-4825-A10B-9F2704D9DB41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtectedAspDotNetCoreWebApi", "ProtectedAspDotNetCoreWebApi\ProtectedAspDotNetCoreWebApi.csproj", "{658942D5-C8AC-4825-A10B-9F2704D9DB41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

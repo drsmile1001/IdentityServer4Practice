@@ -82,9 +82,9 @@ namespace IdentityProvider
                 // SPA client using code flow + pkce
                 new Client
                 {
-                    ClientId = "spa",
-                    ClientName = "SPA Client",
-                    ClientUri = "http://identityserver.io",
+                    ClientId = "vue-spa",
+                    ClientName = "Vue SPA",
+                    ClientUri = "http://localhost:8080",
 
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
@@ -92,14 +92,14 @@ namespace IdentityProvider
 
                     RedirectUris =
                     {
-                        "http://localhost:5002/index.html",
-                        "http://localhost:5002/callback.html",
-                        "http://localhost:5002/silent.html",
-                        "http://localhost:5002/popup.html",
+                        //"http://localhost:5002/index.html",
+                        "http://localhost:8080/callback",
+                        //"http://localhost:5002/silent.html",
+                        //"http://localhost:5002/popup.html",
                     },
 
-                    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-                    AllowedCorsOrigins = { "http://localhost:5002" },
+                    PostLogoutRedirectUris = { "http://localhost:8080/" },
+                    AllowedCorsOrigins = { "http://localhost:8080" },
 
                     AllowedScopes = { "openid", "profile", "api1" }
                 }
