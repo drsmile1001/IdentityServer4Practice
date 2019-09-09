@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityServer4;
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
@@ -41,7 +42,20 @@ namespace IdentityServerAspNetIdentity
 
                     AllowedScopes = { "api1" }
                 },
-
+                //password grant
+                new Client
+                {
+                    ClientId = "password client",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    ClientSecrets =
+                    {
+                        new Secret("password client".Sha256())
+                    },
+                    AllowedScopes = {"api1",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    }
+                },
                 // MVC client using hybrid flow
                 new Client
                 {
@@ -62,9 +76,9 @@ namespace IdentityServerAspNetIdentity
                 // SPA client using code flow + pkce
                 new Client
                 {
-                    ClientId = "spa",
-                    ClientName = "SPA Client",
-                    ClientUri = "http://identityserver.io",
+                    ClientId = "vue-spa",
+                    ClientName = "Vue SPA",
+                    ClientUri = "http://localhost:8080",
 
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
@@ -72,14 +86,14 @@ namespace IdentityServerAspNetIdentity
 
                     RedirectUris =
                     {
-                        "http://localhost:5002/index.html",
-                        "http://localhost:5002/callback.html",
-                        "http://localhost:5002/silent.html",
-                        "http://localhost:5002/popup.html",
+                        //"http://localhost:5002/index.html",
+                        "http://localhost:8080/callback",
+                        //"http://localhost:5002/silent.html",
+                        //"http://localhost:5002/popup.html",
                     },
 
-                    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-                    AllowedCorsOrigins = { "http://localhost:5002" },
+                    PostLogoutRedirectUris = { "http://localhost:8080/" },
+                    AllowedCorsOrigins = { "http://localhost:8080" },
 
                     AllowedScopes = { "openid", "profile", "api1" }
                 }

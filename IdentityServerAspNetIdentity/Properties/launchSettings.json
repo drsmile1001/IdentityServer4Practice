@@ -16,6 +16,15 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "SelfHost seed": {
+      "commandName": "Project",
+      "commandLineArgs": "/seed",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:5000"
+    },
     "SelfHost": {
       "commandName": "Project",
       "launchBrowser": true,

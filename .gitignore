@@ -263,3 +263,9 @@ __pycache__/
 IdentityProvider/tempkey.rsa
 
 IdentityProvider/identityserver4_log.txt
+
+IdentityServerAspNetIdentity/AspIdUsers.db
+
+IdentityServerAspNetIdentity/identityserver4_log.txt
+
+IdentityServerAspNetIdentity/tempkey.rsa
