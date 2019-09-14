@@ -12,5 +12,15 @@ export default new Router({
       name: 'login',
       component: ()=>import("@/views/Login.vue")
     },
+    {
+      path: '/error',
+      name: 'error',
+      component: ()=>import("@/views/Error.vue")
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: ()=>import("@/views/Logout.vue")
+    },
   ]
 })

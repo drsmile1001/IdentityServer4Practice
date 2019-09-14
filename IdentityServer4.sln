@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtectedAspDotNetCoreWebAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerAspNetIdentity", "IdentityServerAspNetIdentity\IdentityServerAspNetIdentity.csproj", "{DAC13C4E-912C-43FB-85FC-2C7B67DEF8CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer4AsApi", "IdentityServer4AsApi\IdentityServer4AsApi.csproj", "{4AC91A67-8B00-46C5-B3E8-5F2C483341FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4AsApi", "IdentityServer4AsApi\IdentityServer4AsApi.csproj", "{4AC91A67-8B00-46C5-B3E8-5F2C483341FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
