@@ -56,7 +56,7 @@ export default class Home extends Vue {
             this.log(error);
         }
     }
-    logout() {
+    async logout() {
         userManager.signoutRedirect();
     }
 }

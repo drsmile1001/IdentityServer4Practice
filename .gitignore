@@ -269,3 +269,7 @@ IdentityServerAspNetIdentity/AspIdUsers.db
 IdentityServerAspNetIdentity/identityserver4_log.txt
 
 IdentityServerAspNetIdentity/tempkey.rsa
+
+IdentityServer4AsApi/Logs/
+
+IdentityServer4AsApi/tempkey.rsa
