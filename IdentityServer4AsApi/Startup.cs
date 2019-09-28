@@ -1,29 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Serialization;
 
 namespace IdentityServer4AsApi
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment environment, IConfiguration configuration)
+        public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
             Environment = environment;
             Configuration = configuration;
         }
 
-        public IHostingEnvironment Environment { get; }
+        public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services) 
@@ -32,12 +26,7 @@ namespace IdentityServer4AsApi
 
             services.AddCors();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddJsonOptions(options=>
-                {
-                    options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local;
-                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                });
+            services.AddControllers();
 
             var builder = services.AddIdentityServer(options =>
             {
@@ -71,7 +60,7 @@ namespace IdentityServer4AsApi
             services.AddTransient<IReturnUrlParser, ReturnUrlParser>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -82,6 +71,8 @@ namespace IdentityServer4AsApi
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
+
+            app.UseRouting();
 
             app.UseIdentityServer();
 
@@ -94,7 +85,10 @@ namespace IdentityServer4AsApi
                 .AllowAnyHeader();
             });
 
-            app.UseMvc();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }
