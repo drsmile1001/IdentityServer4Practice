@@ -1,8 +1,10 @@
 ﻿using IdentityServer4.Services;
+using IdentityServer4AsApi.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
@@ -17,13 +19,19 @@ namespace IdentityServer4AsApi.Controllers
     {
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IWebHostEnvironment _environment;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public AuthenticateController(
             IIdentityServerInteractionService interaction,
-            IWebHostEnvironment environment)
+            IWebHostEnvironment environment,
+            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager)
         {
             _interaction = interaction;
             _environment = environment;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         public class LoginRequest
@@ -38,12 +46,12 @@ namespace IdentityServer4AsApi.Controllers
 
         {
             var context = await _interaction.GetAuthorizationContextAsync(request.ReturnUrl);
-            var user = Config.GetTestUsers()
-                   .FirstOrDefault(usr => usr.Password == request.Password && usr.Username == request.UserName);
+            var result = await _signInManager.PasswordSignInAsync(request.UserName, request.Password,isPersistent:false, lockoutOnFailure: false);
 
-            if (user != null && context != null)
+            if (result.Succeeded  && context != null)
             {
-                await HttpContext.SignInAsync(user.SubjectId, user.Username);
+                var user = await _userManager.FindByNameAsync(request.UserName);
+                await HttpContext.SignInAsync(user.Id, user.UserName);
                 return Ok(new { RedirectUrl = request.ReturnUrl, IsOk = true });
             }
 

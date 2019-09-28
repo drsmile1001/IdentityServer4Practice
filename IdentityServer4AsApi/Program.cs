@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.SystemConsole.Themes;
+using System.Linq;
 
 namespace IdentityServer4AsApi
 {
@@ -10,7 +12,19 @@ namespace IdentityServer4AsApi
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var seed = args.Any(x => x == "/seed");
+            if (seed) args = args.Except(new[] { "/seed" }).ToArray();
+
+            var host = CreateHostBuilder(args).Build();
+
+            if (seed)
+            {
+                using var scope = host.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+                SeedData.EnsureSeedData(scope.ServiceProvider);
+                return;
+            }
+
+            host.Run(); ;
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
