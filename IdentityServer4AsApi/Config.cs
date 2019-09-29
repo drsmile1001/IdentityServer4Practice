@@ -31,7 +31,9 @@ namespace IdentityServer4AsApi
                     {
                         new Secret("08037d8e-30fc-4ea5-95f4-5b5277aeac93".Sha256())
                     }
-                }
+                },
+                // local API
+                new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
             };
         }
 
@@ -94,14 +96,31 @@ namespace IdentityServer4AsApi
                     RequireConsent = false,
                     RedirectUris =
                     {
-                        "http://localhost:8080/callback",
-                        //"http://localhost:8080/",
-                        //"http://localhost:5002/silent.html",
-                        //"http://localhost:5002/popup.html",
+                        "http://localhost:8080/callback"
                     },
                     PostLogoutRedirectUris = { "http://localhost:8080" }, //結尾有沒有"/"會有差別
                     AllowedCorsOrigins = { "http://localhost:8080" },
                     AllowedScopes = { "openid", "profile", "api1" }
+                },
+
+                // login-spa
+                new Client
+                {
+                    ClientId = "login-spa",
+                    ClientName = "Login SPA",
+                    ClientUri = "http://localhost:8082",
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+                    RequireConsent = false,
+                    RedirectUris =
+                    {
+                        "http://localhost:8082/callback"
+                    },
+                    PostLogoutRedirectUris = { "http://localhost:8082" }, //結尾有沒有"/"會有差別
+                    AllowedCorsOrigins = { "http://localhost:8082" },
+                    AllowedScopes = { "openid", "profile", "api1", IdentityServerConstants.LocalApi.ScopeName }
                 }
             };
         }

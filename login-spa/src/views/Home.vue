@@ -64,7 +64,7 @@ export default class Home extends Vue {
         const user = await userManager.getUser();
         try {
             const response = await axios.get(
-                "https://localhost:5001/test",
+                "http://localhost:5000/api/test/get",
                 {
                     headers: {
                         Authorization: `Bearer ${user && user.access_token}`

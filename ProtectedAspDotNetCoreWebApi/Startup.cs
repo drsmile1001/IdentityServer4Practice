@@ -29,7 +29,7 @@ namespace ProtectedAspDotNetCoreWebApi
                 // this defines a CORS policy called "default"
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("http://localhost:8080")
+                    policy.WithOrigins("http://localhost:8080", "http://localhost:8082")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });

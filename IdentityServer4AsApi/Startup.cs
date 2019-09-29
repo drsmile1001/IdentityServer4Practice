@@ -84,6 +84,7 @@ namespace IdentityServer4AsApi
             };
             services.AddSingleton<ICorsPolicyService>(cors);
             services.AddTransient<IReturnUrlParser, ReturnUrlParser>();
+            services.AddLocalApiAuthentication();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -110,6 +111,8 @@ namespace IdentityServer4AsApi
                 .AllowAnyMethod()
                 .AllowAnyHeader();
             });
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
