@@ -20,5 +20,12 @@ namespace IdentityServer4AsApi.Controllers
             var claims = User.Claims.Select(c => new { c.Type, c.Value }).ToArray();
             return Ok(new { message = "Hello API", claims });
         }
+
+        [Route("api/test/admin")]
+        [Authorize("Admin")]
+        public IActionResult CheckAdmin()
+        {
+            return Ok("You have Admin");
+        }
     }
 }

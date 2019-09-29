@@ -3,6 +3,7 @@
         <button @click="login">登入</button>
         <button @click="api">呼叫被保護的API</button>
         <button @click="apiOnIdentityServer">呼叫IdentityServer上的API</button>
+        <button @click="checkAdmin">檢查是否是Admin</button>
         <button @click="logout">登出</button>
         <pre>
             {{logMessages}}
@@ -41,11 +42,11 @@ export default class Home extends Vue {
     login() {
         userManager.signinRedirect();
     }
-    async api() {
+    async callApi(url: string) {
         const user = await userManager.getUser();
         try {
             const response = await axios.get(
-                "http://localhost:5002/api/Values",
+                url,
                 {
                     headers: {
                         Authorization: `Bearer ${user && user.access_token}`
@@ -56,25 +57,18 @@ export default class Home extends Vue {
         } catch (error) {
             this.log(error);
         }
+    }
+    async api() {
+        this.callApi("http://localhost:5002/api/Values")
     }
     async logout() {
         userManager.signoutRedirect();
     }
-    async apiOnIdentityServer(){
-        const user = await userManager.getUser();
-        try {
-            const response = await axios.get(
-                "http://localhost:5000/api/test/get",
-                {
-                    headers: {
-                        Authorization: `Bearer ${user && user.access_token}`
-                    }
-                }
-            );
-            this.log(response.status, response.data);
-        } catch (error) {
-            this.log(error);
-        }
+    async apiOnIdentityServer() {
+        this.callApi("http://localhost:5000/api/test/get")
+    }
+    async checkAdmin() {
+        this.callApi("http://localhost:5000/api/test/admin")
     }
 }
 </script>

@@ -85,6 +85,10 @@ namespace IdentityServer4AsApi
             services.AddSingleton<ICorsPolicyService>(cors);
             services.AddTransient<IReturnUrlParser, ReturnUrlParser>();
             services.AddLocalApiAuthentication();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy => policy.RequireClaim("Admin"));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
