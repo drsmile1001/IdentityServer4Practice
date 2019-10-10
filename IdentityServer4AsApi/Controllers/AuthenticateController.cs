@@ -64,7 +64,7 @@ namespace IdentityServer4AsApi.Controllers
         {
             var context = await _interaction.GetLogoutContextAsync(logoutId);
             bool showSignoutPrompt = true;
-
+            
             if (context?.ShowSignoutPrompt == false)
             {
                 // it's safe to automatically sign-out
@@ -73,10 +73,9 @@ namespace IdentityServer4AsApi.Controllers
 
             if (User?.Identity.IsAuthenticated == true)
             {
-                // delete local authentication cookie
-                await HttpContext.SignOutAsync();
+                await _signInManager.SignOutAsync();
             }
-
+            
             // no external signout supported for now (see \Quickstart\Account\AccountController.cs TriggerExternalSignout)
             return Ok(new
             {
